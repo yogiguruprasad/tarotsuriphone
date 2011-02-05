@@ -19,6 +19,12 @@
 		0D90F83E12F6DE4C00196671 /* SaisieNom4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D90F83C12F6DE4C00196671 /* SaisieNom4.xib */; };
 		0D90FDEF12F7247200196671 /* SaisieParametre.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D90FDED12F7247200196671 /* SaisieParametre.m */; };
 		0D90FDF012F7247200196671 /* SaisieParametre.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D90FDEE12F7247200196671 /* SaisieParametre.xib */; };
+		0DF851E312FD5C2C007F943E /* SaisieNom5.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF851E112FD5C2C007F943E /* SaisieNom5.m */; };
+		0DF851E412FD5C2C007F943E /* SaisieNom5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DF851E212FD5C2C007F943E /* SaisieNom5.xib */; };
+		0DF851EA12FD5C48007F943E /* SaisieNom6.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF851E812FD5C48007F943E /* SaisieNom6.m */; };
+		0DF851EB12FD5C48007F943E /* SaisieNom6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DF851E912FD5C48007F943E /* SaisieNom6.xib */; };
+		0DF8530712FD983E007F943E /* SaisieResultat5.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF8530512FD983E007F943E /* SaisieResultat5.m */; };
+		0DF8530812FD983E007F943E /* SaisieResultat5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DF8530612FD983E007F943E /* SaisieResultat5.xib */; };
 		1D3623260D0F684500981E51 /* Tarot2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Tarot2AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -46,6 +52,15 @@
 		0D90FDEC12F7247200196671 /* SaisieParametre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaisieParametre.h; sourceTree = "<group>"; };
 		0D90FDED12F7247200196671 /* SaisieParametre.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaisieParametre.m; sourceTree = "<group>"; };
 		0D90FDEE12F7247200196671 /* SaisieParametre.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaisieParametre.xib; sourceTree = "<group>"; };
+		0DF851E012FD5C2C007F943E /* SaisieNom5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaisieNom5.h; sourceTree = "<group>"; };
+		0DF851E112FD5C2C007F943E /* SaisieNom5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaisieNom5.m; sourceTree = "<group>"; };
+		0DF851E212FD5C2C007F943E /* SaisieNom5.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaisieNom5.xib; sourceTree = "<group>"; };
+		0DF851E712FD5C48007F943E /* SaisieNom6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaisieNom6.h; sourceTree = "<group>"; };
+		0DF851E812FD5C48007F943E /* SaisieNom6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaisieNom6.m; sourceTree = "<group>"; };
+		0DF851E912FD5C48007F943E /* SaisieNom6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaisieNom6.xib; sourceTree = "<group>"; };
+		0DF8530412FD983E007F943E /* SaisieResultat5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaisieResultat5.h; sourceTree = "<group>"; };
+		0DF8530512FD983E007F943E /* SaisieResultat5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaisieResultat5.m; sourceTree = "<group>"; };
+		0DF8530612FD983E007F943E /* SaisieResultat5.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaisieResultat5.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Tarot2AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tarot2AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Tarot2AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tarot2AppDelegate.m; sourceTree = "<group>"; };
@@ -88,8 +103,11 @@
 			children = (
 				0D90F82512F6DBFC00196671 /* Accueil.xib */,
 				0D90F83C12F6DE4C00196671 /* SaisieNom4.xib */,
+				0DF851E212FD5C2C007F943E /* SaisieNom5.xib */,
+				0DF851E912FD5C48007F943E /* SaisieNom6.xib */,
 				0D90FDEE12F7247200196671 /* SaisieParametre.xib */,
 				0D9000D712F7DB9B00196671 /* SaisieResultat.xib */,
+				0DF8530612FD983E007F943E /* SaisieResultat5.xib */,
 				0D90036012F809A000196671 /* AffichageScores.xib */,
 			);
 			name = "Fichierx xib";
@@ -100,8 +118,11 @@
 			children = (
 				0D90F82312F6DBFC00196671 /* Accueil.h */,
 				0D90F83A12F6DE4C00196671 /* SaisieNom4.h */,
+				0DF851E012FD5C2C007F943E /* SaisieNom5.h */,
+				0DF851E712FD5C48007F943E /* SaisieNom6.h */,
 				0D90FDEC12F7247200196671 /* SaisieParametre.h */,
 				0D9000D512F7DB9B00196671 /* SaisieResultat.h */,
+				0DF8530412FD983E007F943E /* SaisieResultat5.h */,
 				0D90035E12F809A000196671 /* AffichageScores.h */,
 			);
 			name = "Fichiers h";
@@ -127,8 +148,11 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				0D90F82412F6DBFC00196671 /* Accueil.m */,
 				0D90F83B12F6DE4C00196671 /* SaisieNom4.m */,
+				0DF851E112FD5C2C007F943E /* SaisieNom5.m */,
+				0DF851E812FD5C48007F943E /* SaisieNom6.m */,
 				0D90FDED12F7247200196671 /* SaisieParametre.m */,
 				0D9000D612F7DB9B00196671 /* SaisieResultat.m */,
+				0DF8530512FD983E007F943E /* SaisieResultat5.m */,
 				0D90035F12F809A000196671 /* AffichageScores.m */,
 			);
 			name = CustomTemplate;
@@ -219,6 +243,9 @@
 				0D9000D912F7DB9B00196671 /* SaisieResultat.xib in Resources */,
 				0D9001E312F7E83300196671 /* accueil.jpg in Resources */,
 				0D90036212F809A000196671 /* AffichageScores.xib in Resources */,
+				0DF851E412FD5C2C007F943E /* SaisieNom5.xib in Resources */,
+				0DF851EB12FD5C48007F943E /* SaisieNom6.xib in Resources */,
+				0DF8530812FD983E007F943E /* SaisieResultat5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +264,9 @@
 				0D9000D812F7DB9B00196671 /* SaisieResultat.m in Sources */,
 				0D90036112F809A000196671 /* AffichageScores.m in Sources */,
 				0D90065D12F86E6500196671 /* Joueur.m in Sources */,
+				0DF851E312FD5C2C007F943E /* SaisieNom5.m in Sources */,
+				0DF851EA12FD5C48007F943E /* SaisieNom6.m in Sources */,
+				0DF8530712FD983E007F943E /* SaisieResultat5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
