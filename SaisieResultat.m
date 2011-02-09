@@ -15,203 +15,281 @@
 @synthesize chelem;
 @synthesize petitAuBout;
 @synthesize validerResultat;
+@synthesize validerScore;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+ if (self) {
+ // Custom initialization.
+ }
+ return self;
+ }
+ */
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	chelem.on=NO;
 	self.title = @"Résultat";
+	
+	Tarot2AppDelegate *app = (Tarot2AppDelegate*)[[UIApplication sharedApplication] delegate];
+	[app setAppele:[app.joueurs objectAtIndex:[monPickerView selectedRowInComponent:0]]];
+	
+	//creation du bouton pour voir les scores
 	UIBarButtonItem *item = [[UIBarButtonItem alloc]   
                              initWithTitle:@"Scores" style:UIBarButtonItemStyleBordered
                              target:self   
-                             action:@selector(afficherScore:)];  
-    self.navigationItem.rightBarButtonItem = item;  
+                             action:@selector(afficherScore)];  
+    self.navigationItem.rightBarButtonItem = item;
+	[item release];
 	
-	
-	
-	
-	[score setText:@"46"];
+	//initialisation textField score
+	[score setText:@"Score de l'attaque"];
 	[score setDelegate:self];
 	
+	//pickerView pour le nb de bouts et le petit au bout
 	monPickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
     CGSize pickerSize = [monPickerView sizeThatFits:CGSizeZero];
-	CGRect pickerRect = CGRectMake(0.0,100.0,pickerSize.width,162.0);
+	CGRect pickerRect = CGRectMake(0.0,100.0,pickerSize.width,180);
 	monPickerView.frame = pickerRect;
-	
     monPickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     monPickerView.showsSelectionIndicator = YES; // Par défaut, non
-    
     monPickerView.delegate = self;
     monPickerView.dataSource = self;
-	
-	nbBoutsArray = [[NSArray alloc] initWithObjects:
-					 @"Aucun",@"1 bout",@"2 bouts",@"3 bouts",nil];
-	
 	[self.view addSubview:monPickerView];
+	[monPickerView release];
+	
+	//creation de la liste des nb de bouts
+	nbBoutsArray = [[NSArray alloc] initWithObjects:
+					@"Aucun",@"1 bout",@"2 bouts",@"3 bouts",nil];
+	
+	//creation de la liste des petit au bout
+	petitAuBoutArray = [[NSArray alloc] initWithObjects:
+						@"Personne",@"Attaque",@"Défense",nil];
+	
     [super viewDidLoad];
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
-	if(textField == score)
-		[score resignFirstResponder];
-	return YES;
+//cacher le bouton pour valider le score
+-(void) afficherBtnValiderScore:(id)sender{
+	validerScore.hidden=NO;
 }
 
-
--(void) validerResultat:(id)sender{
-	NSInteger scoreAObtenir=0;
-	NSInteger scoreObtenu=0;
-	NSInteger scoreTotal=0;
-	NSInteger coeffMulti=0;
-	NSInteger primeChelem=0;
-	NSInteger primePetitAuBout=0;
-	NSInteger primePoignee=0;
-	
-	scoreObtenu = [score.text integerValue];
-	
-	Tarot2AppDelegate *app = (Tarot2AppDelegate*)[[UIApplication sharedApplication] delegate];
-	
-	switch ([monPickerView selectedRowInComponent:0]) {
-		case 0:
-			scoreAObtenir=56;
-			break;
-		case 1:
-			scoreAObtenir=51;
-			break;
-		case 2:
-			scoreAObtenir=41;
-			break;
-		case 3:
-			scoreAObtenir=36;
-			break;
-		default:
-			break;
-	}
-	
-	switch ([app contrat]) {
-		case 0:
-			//petite
-			coeffMulti=1;
-			break;
-		case 1:
-			//garde
-			coeffMulti=2;
-			break;
-		case 2:
-			//garde sans
-			coeffMulti=4;
-			break;
-		case 3:
-			//garde contre
-			coeffMulti=6;
-			break;
-		default:
-			break;
-	}
-	
-	if(petitAuBout.on)
-		primePetitAuBout=10;
-	else
-		primePetitAuBout=0;
-	
-	
-	if(chelem.on){
-		//chelem realise
-		if([app chelem]==0)
-			//chelem non annonce
-			primeChelem = 200;
-		else if([app chelem] == 1)
-			//chelem annonce
-			primeChelem = 400;
-	}
-	else if(!chelem.on){
-		//chelem non realise
-		if([app chelem]==0)
-			//chelem non annonce
-			primeChelem = 0;
-		else if([app chelem] == 1)
-			//chelem annonce
-			primeChelem = -200;
-	}
-	
-	//voir pour la poignée
-	switch ([app poignee]) {
-		case 0:
-			//Aucune poignee
-			primePoignee = 0;
-			break;
-		case 1:
-			//Simple
-			primePoignee = 20;
-			break;
-		case 2:
-			//Double
-			primePoignee = 30;
-			break;
-		case 3:
-			//Triple
-			primePoignee = 40;
-			break;
-		default:
-			break;
-	}
-
-	//score calcule pour le preneur(attaque)
-	scoreTotal = (25+(ABS(scoreAObtenir-scoreObtenu)))*coeffMulti + primePoignee + primePetitAuBout*coeffMulti + primeChelem;
-//	NSLog([NSString stringWithFormat:@"%d",scoreTotal]);
-	
-	NSInteger i;
-	if((scoreObtenu - scoreAObtenir)<0){
-		//attaque perd
-		for (i=0; i<[[app joueurs] count]; i++) {
-			if([[app joueurs] objectAtIndex:i] == [app preneur]){
-			//preneur
-				[[[app joueurs] objectAtIndex:i] modifierScore:-(scoreTotal*3)];
-			}
-			else{
-			//joueur de la défense
-				[[[app joueurs] objectAtIndex:i] modifierScore:(scoreTotal)];
-			}
-				
-		}
+//retirer la clavier apres avoir ecrit le score
+-(void) retirerClavier:(id)sender{
+	NSInteger monScore = [score.text intValue];
+	if(monScore < 0 || monScore > 91 || [score.text isEqualToString:@""]){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention" message:@"Le score saisi est invalide !"
+													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
 	}
 	else{
-		//attaque gagne
+		[score resignFirstResponder];	
+		validerScore.hidden=YES;
+	}
+}
+
+//validation du resultat et affichage des scores
+-(void) validerResultat:(id)sender{
+	Tarot2AppDelegate *app = (Tarot2AppDelegate*)[[UIApplication sharedApplication] delegate];
+	NSInteger monScore = [score.text intValue];
+	if(monScore < 0 || monScore > 91 || [score.text isEqualToString:@"Score de l'attaque"]){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention" message:@"Le score saisi est invalide !"
+													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+	else{
+
+		//initialisation des variables à 0
+		NSInteger scoreAObtenir = 0;
+		NSInteger coeffMulti = 0;
+		NSInteger primeChelem = 0;
+		NSInteger primePetitAuBout = 0;
+		NSInteger primePoignee = 0;
+		NSInteger scoreTotal = 0;
+		
+		//recuperation du score saisi
+		NSInteger scoreObtenu = [score.text integerValue];
+		[app setScore:scoreObtenu];
+		
+		
+		//determination du score a obtenir en fonction du nombre de bouts
+		switch ([monPickerView selectedRowInComponent:0]) {
+			case 0://aucun bout
+				scoreAObtenir=56;
+				break;
+			case 1://1 bout
+				scoreAObtenir=51;
+				break;
+			case 2://2 bouts
+				scoreAObtenir=41;
+				break;
+			case 3://3 bouts
+				scoreAObtenir=36;
+				break;
+			default:
+				break;
+		}
+		
+		
+		//determination de 25 ou -25
+		if((scoreObtenu - scoreAObtenir)>0){
+			//attaque gagne
+			scoreTotal = 25;
+		}
+		else {
+			//attaque perd
+			scoreTotal = -25;
+		}
+		
+		//determination du coeff multiplicateur en fonction du contrat
+		switch ([app contrat]) {
+			case 0://petite
+				coeffMulti=1;
+				break;
+			case 1://garde
+				coeffMulti=2;
+				break;
+			case 2://garde sans
+				coeffMulti=4;
+				break;
+			case 3://garde contre
+				coeffMulti=6;
+				break;
+			default:
+				break;
+		}
+		
+		//determination de la prime pour le petit au bout
+		switch ([monPickerView selectedRowInComponent:1]){
+			case 0:
+				//persone
+				break;
+			case 1:
+				//dernier pli pour l'attaque
+				primePetitAuBout = 10*coeffMulti;
+				break;
+			case 2:
+				//dernier pli pour l'attaque
+				primePetitAuBout = -10*coeffMulti;
+				break;
+			default:
+				break;
+		}
+		
+		//determination de la prime pour le chelem
+		switch ([app chelem]) {
+			case 0:
+				//aucun
+				if(chelem.on){
+					//aucun chelem annoncé
+					if((scoreObtenu - scoreAObtenir)>0){
+						//si chelem réussi pour l'attaque
+						primeChelem=200;
+					}
+					else {
+						//si chelem réussi pour la défense
+						primeChelem=-200;
+					}
+				}
+				else {
+					primeChelem=0;
+				}
+				break;
+			case 1:
+				//chelem attaque
+				if(chelem.on){
+					//si chelem reussi par l'attaque
+					primeChelem=400;
+				}
+				else {
+					//si chelem raté par l'attaque
+					primeChelem=-200;
+				}
+				break;
+			case 2:
+				//chelem defense
+				if(chelem.on){
+					//si chelem reussi par la defense
+					primeChelem=-400;
+				}
+				else {
+					//si chelem raté par la defense
+					primeChelem=200;
+				}
+				break;
+			default:
+				break;
+		}
+		
+		//determination de la prime pour la poignée
+		switch ([app poignee]){
+			case 1:
+				//Simple attaque
+				primePoignee = 20;
+				break;
+			case 2:
+				//Double attaque
+				primePoignee = 30;
+				break;
+			case 3:
+				//Triple attaque
+				primePoignee = 40;
+				break;
+			default:
+				break;
+		}
+		if((scoreObtenu - scoreAObtenir)<0){
+			//dans le cas d'une victoire de la défense 	
+			primePoignee = -primePoignee;
+		}
+		
+	//score calcule pour le preneur (attaque)
+		/*scoreTotal =	+ ou - 25 
+						+ (difference entre le score obtenu et le score à obtenir) * le coeff multiplicateur
+						+ prime de la poignee
+						+ prime du petit au bout
+						+ prime du chelem
+		 */
+		
+		scoreTotal = (scoreTotal+(scoreObtenu - scoreAObtenir))*coeffMulti+ primePoignee + primePetitAuBout + primeChelem;
+		
+		//mise a jour des scores de chaque joueur
+		NSInteger i;
 		for (i=0; i<[[app joueurs] count]; i++) {
 			if([[app joueurs] objectAtIndex:i] == [app preneur]){
 				//preneur
-				[[[app joueurs] objectAtIndex:i] modifierScore:(scoreTotal*3)];
+				[[[app joueurs] objectAtIndex:i] modifierScore:scoreTotal*3];
 			}
 			else{
-				//joueur de la défense
-				[[[app joueurs] objectAtIndex:i] modifierScore:-(scoreTotal)];
+				//joueurs de la défense
+				[[[app joueurs] objectAtIndex:i] modifierScore:-scoreTotal];
 			}
-			
 		}
+		app.nouvellePartie=YES;
+		
+		Recapitulatif *recapitulatif = [[Recapitulatif alloc] init];//WithNibName:@"affichageScores" bundle:nil];
+		[self.navigationController pushViewController:recapitulatif animated:YES];
+		[recapitulatif release];
 	}
-	app.nouvellePartie=YES;
-	AffichageScores *affichageScores = [[AffichageScores alloc] init];//WithNibName:@"affichageScores" bundle:nil];
-	[self.navigationController pushViewController:affichageScores animated:YES];
-	[affichageScores release];
 }
 
 -(void) afficherScore:(id)sender{
-	AffichageScores *affichageScores = [[AffichageScores alloc] init];//WithNibName:@"affichageScores" bundle:nil];
+	AffichageScores *affichageScores = [[AffichageScores alloc] init];
 	[self.navigationController pushViewController:affichageScores animated:YES];
 	[affichageScores release];
 }
 
-
+#pragma mark -
+#pragma mark UIPickerViewDelegate
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+	Tarot2AppDelegate *app = (Tarot2AppDelegate*)[[UIApplication sharedApplication] delegate];
+	[app setNbBouts:([monPickerView selectedRowInComponent:1]+1)];
+}
 
 #pragma mark -
 #pragma mark UIPickerViewDataSource
@@ -221,15 +299,22 @@
 	if(pickerView == monPickerView){
 		if (component == 0)
 			returnStr = [nbBoutsArray objectAtIndex:row];
-		}
-    return returnStr;
+	}
+	if (component == 0)
+		returnStr = [nbBoutsArray objectAtIndex:row];
+	else if (component == 1)
+		returnStr = [petitAuBoutArray objectAtIndex:row];
+	return returnStr;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
     CGFloat componentWidth = 0.0;
     if(pickerView == monPickerView){
 		if (component == 0)
-			componentWidth = 320.0;
+			componentWidth = 160.0;
+		else if (component == 1)
+			componentWidth = 160.0;
+		
 	}
     return componentWidth;
 }
@@ -245,6 +330,9 @@
 	if(pickerView == monPickerView){
 		if(component==0)
 			nbLignes = [nbBoutsArray count];
+		else if(component==1)
+			nbLignes = [petitAuBoutArray count];
+		
 	}
 	return nbLignes;
 }
@@ -253,18 +341,18 @@
 {
 	NSInteger nbComponents = 0;
 	if(pickerView == monPickerView)
-		nbComponents = 1;
+		nbComponents = 2;
 	return nbComponents;
 }
 
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -281,6 +369,8 @@
 
 
 - (void)dealloc {
+	[nbBoutsArray release];
+	[petitAuBoutArray release];
     [super dealloc];
 }
 
